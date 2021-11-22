@@ -62,6 +62,6 @@ For more details, please refer to the [report.pdf](./report.pdf).
 
 ## How to run
 
-- You can down load the [released version project]([.releases/tag/v1.0](https://github.com/Jack-Lio/IPWatch/releases)), and execute the main.exe file with administrator privileges.
+- You can down load the [released version project](https://github.com/Jack-Lio/IPWatch/releases), and execute the main.exe file with administrator privileges.
 
 - `python main.py`
