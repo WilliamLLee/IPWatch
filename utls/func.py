@@ -110,6 +110,23 @@ def filter_by_dst_ip(ip_address,results):
             new_results.append(result)
     return new_results
 
+
+def filter_by_src_ip_and_dst_ip(src_ip_address, dst_ip_address, results):
+    '''
+    Filter the results by the source IP address and the destination IP address.
+    src_ip_address: the source IP address of the target.
+    dst_ip_address: the destination IP address of the target.
+    results: the list of the results.
+    '''
+    assert(src_ip_address is not None)
+    assert(dst_ip_address is not None)
+    assert(results is not None)
+    new_results = []
+    for result in results:
+        if result[1] == src_ip_address and result[2] == dst_ip_address:
+            new_results.append(result)
+    return new_results
+
 def parse_raw_package(ts, data):
     '''
     Parse the raw package.

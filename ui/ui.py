@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication,QLineEdit, QTableWidget,QWidget,QDialog,QFormLayout,QVBoxLayout,QHBoxLayout, QLabel, QRadioButton, QCheckBox, QTableWidgetItem,QPushButton
-from PyQt5.QtGui import QIntValidator,QDoubleValidator,QFont, QIcon
-from PyQt5.QtCore import QRect, QSize, Qt, right
+from PyQt5.QtWidgets import QApplication,QLineEdit, QTableWidget,QWidget,QDialog,QVBoxLayout,QHBoxLayout, QLabel, QCheckBox, QTableWidgetItem,QPushButton
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import QRect, QSize
 import sys
 import threading
 import time
@@ -27,7 +27,7 @@ class PacketsAnalyzer(QDialog):
         diglog_size = QSize(600,400)
         self.setFixedSize(diglog_size)
         # Set window icon
-        self.setWindowIcon(QIcon('ui\icon\icon.ico'))
+        self.setWindowIcon(QIcon('icon.ico'))
         
         # v Box Layout container
         left_container = QVBoxLayout()
@@ -112,7 +112,7 @@ class MainFrameWindow(QWidget):
         self.debug_flag = debug_flag
 
         # set the icon path
-        self.icon_path = "ui\icon\icon.ico"
+        self.icon_path = "icon.ico"
 
         # set the threading event
         self.thread_event = threading.Event()
@@ -258,13 +258,14 @@ class MainFrameWindow(QWidget):
         self.state_info.setText(state_info)
 
     def __filter_results(self):
+        if self.__get_dst_ip_checkbox() and self.__get_src_ip_checkbox():
+            return func.filter_by_src_ip_and_dst_ip(self.__get_src_ip(),self.__get_dst_ip(),self.results,)
         if self.__get_src_ip_checkbox():
-            results= func.filter_by_src_ip(self.__get_src_ip(),self.results,)
-        elif self.__get_dst_ip_checkbox():
-            results = func.filter_by_dst_ip(self.__get_dst_ip(),self.results,)
-        else:
-            results = self.results
-        return results
+            return func.filter_by_src_ip(self.__get_src_ip(),self.results,)
+        if self.__get_dst_ip_checkbox():
+            return func.filter_by_dst_ip(self.__get_dst_ip(),self.results,)
+        
+        return  self.results
 
     def __filter_display(self):
         results = self.__filter_results()
